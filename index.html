@@ -1,0 +1,232 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Etiqueta de Envío MAQSAT</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+  /* Layout: hoja A4 (210 x 297 mm) vista previa, con la etiqueta de 13 x 9 cm arriba y centrada. calc(1 * var(--u)) dentro de la etiqueta = 1,3 mm. */
+  :root { --bg:#d9d9de; --fg:#1a1a1d; --muted:#5a5a62; --btn-bg:#ffffff; --btn-border:#8a8a92; --accent:#c00000; --accent-fg:#ffffff; --paper:#ffffff; --ink:#000000; --red:#c00000; --fill:#0b2a8a; --focus:#fff8c9; --s:1; --k:1; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#1b1b1f; --fg:#ececf0; --muted:#a4a4ae; --btn-bg:#2a2a30; --btn-border:#5a5a64; --accent:#e03a3a; color-scheme: dark; } }
+  :root[data-theme="dark"] { --bg:#1b1b1f; --fg:#ececf0; --muted:#a4a4ae; --btn-bg:#2a2a30; --btn-border:#5a5a64; --accent:#e03a3a; color-scheme: dark; }
+
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg); font-family:Arial, "Liberation Sans", Helvetica, sans-serif; padding-block:16px; padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px)); }
+
+  .toolbar { max-width:794px; margin:0 auto 14px; display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+  .toolbar button { font:600 15px Arial, "Liberation Sans", sans-serif; padding:10px 20px; border-radius:8px; border:1px solid var(--btn-border); background:var(--btn-bg); color:var(--fg); cursor:pointer; }
+  .toolbar button.primary { background:var(--accent); border-color:var(--accent); color:var(--accent-fg); }
+  .toolbar button:disabled { opacity:.5; cursor:default; }
+  .toolbar button:focus-visible { outline:3px solid var(--accent); outline-offset:2px; }
+  .toolbar .nota { font-size:13px; color:var(--muted); min-width:0; flex:1 1 220px; }
+
+  .toolbar .esc { font-size:13px; color:var(--muted,#555); display:flex; align-items:center; gap:6px; }
+  .toolbar select { font:14px Arial, "Liberation Sans", sans-serif; padding:8px 10px; border-radius:8px; border:1px solid var(--btn-border,#777); background:var(--btn-bg,#fff); color:var(--fg,#111); }
+
+  .holder { width:calc(210mm * var(--s)); height:calc(297mm * var(--s)); margin:0 auto; }
+  .sheet { position:relative; width:210mm; height:297mm; background:var(--paper); box-shadow:0 2px 14px rgba(0,0,0,.35); transform:scale(var(--s)); transform-origin:top left; }
+
+  .label { --u:calc(1.3mm * var(--k)); position:absolute; left:calc((210mm - 130mm * var(--k)) / 2); top:15mm; width:calc(130mm * var(--k)); height:calc(90mm * var(--k)); background:var(--paper); border:.35mm solid var(--ink); overflow:hidden; color:var(--ink); }
+  .abs { position:absolute; margin:0; line-height:1; white-space:nowrap; }
+
+  .logo { left:calc(1.9 * var(--u)); top:calc(5.75 * var(--u)); width:calc(6.6 * var(--u)); }
+  .tag-top { left:calc(16.7 * var(--u)); top:calc(5.6 * var(--u)); font-size:calc(1.31 * var(--u)); font-weight:700; }
+  .brand { left:calc(10 * var(--u)); top:calc(7.34 * var(--u)); font-size:calc(6.41 * var(--u)); font-weight:900; color:var(--red); }
+  .tag-bot { left:calc(25.8 * var(--u)); top:calc(13.22 * var(--u)); font-size:calc(1.31 * var(--u)); font-weight:700; }
+  .envio { left:calc(42.6 * var(--u)); top:calc(3.11 * var(--u)); font-size:calc(15.84 * var(--u)); font-weight:900; }
+
+  .addr { left:0; right:0; top:calc(18.07 * var(--u)); text-align:center; font-size:calc(3.79 * var(--u)); }
+  .phone-ico { left:calc(1.6 * var(--u)); top:calc(20.97 * var(--u)); width:calc(6.1 * var(--u)); }
+  .phone { left:calc(9.3 * var(--u)); top:calc(22.15 * var(--u)); font-size:calc(4.28 * var(--u)); }
+  .mail-ico { left:calc(37.4 * var(--u)); top:calc(22.29 * var(--u)); width:calc(6.3 * var(--u)); }
+  .mail { left:calc(45.7 * var(--u)); top:calc(22.15 * var(--u)); font-size:calc(4.37 * var(--u)); }
+  .web { left:0; right:0; top:calc(27.48 * var(--u)); text-align:center; font-size:calc(2.82 * var(--u)); }
+
+  .row { position:absolute; display:flex; align-items:flex-end; font-size:calc(4.95 * var(--u)); line-height:1; }
+  .row label { white-space:nowrap; padding-bottom:calc(.2 * var(--u)); }
+  .row input[type=text] { flex:1; min-width:0; border:0; border-bottom:calc(.29 * var(--u)) solid var(--ink); background:transparent; font:inherit; font-size:calc(3.5 * var(--u)); padding:0 calc(.75 * var(--u)); height:1.25em; color:var(--fill); outline:none; border-radius:0; }
+  .row input[type=text]:focus { background:var(--focus); }
+  .r-para { left:calc(3 * var(--u)); top:calc(32.12 * var(--u)); width:calc(97 * var(--u)); }
+  .r-dir  { left:calc(3 * var(--u)); top:calc(38.07 * var(--u)); width:calc(91.5 * var(--u)); }
+  .r-loc  { left:calc(3 * var(--u)); top:calc(44.09 * var(--u)); width:calc(47 * var(--u)); }
+  .paga { position:absolute; left:calc(55.5 * var(--u)); top:calc(44.23 * var(--u)); display:flex; align-items:flex-end; font-size:calc(4.95 * var(--u)); gap:calc(.8 * var(--u)); line-height:1; white-space:nowrap; }
+  .paga .opt { display:flex; align-items:flex-end; gap:calc(.6 * var(--u)); cursor:pointer; }
+  .paga input { appearance:none; -webkit-appearance:none; width:calc(4.2 * var(--u)); height:calc(4.2 * var(--u)); border:calc(.25 * var(--u)) solid var(--ink); background:var(--paper); margin:0; position:relative; cursor:pointer; border-radius:0; }
+  .paga input:checked::after { content:""; position:absolute; inset:calc(.43 * var(--u)); background:var(--ink); }
+  .paga input:focus-visible { outline:2px solid var(--fill); outline-offset:2px; }
+
+  .fragil { position:absolute; left:0; right:0; bottom:0; height:calc(19.25 * var(--u)); background:#000000; color:#ffffff; display:flex; align-items:center; justify-content:center; gap:calc(3.4 * var(--u)); font-weight:900; font-size:calc(16.8 * var(--u)); line-height:1; white-space:nowrap; }
+  .fragil .dash { font-size:calc(14.6 * var(--u)); }
+</style>
+
+<div class="toolbar">
+  <button type="button" class="primary" id="imprimir">Imprimir</button>
+  <button type="button" id="limpiar">Limpiar campos</button>
+  <label class="esc">Tamaño de la etiqueta <select id="escala"><option value="1">100 % (13 x 9 cm)</option><option value="0.9">90 % (11,7 x 8,1 cm)</option><option value="0.8">80 % (10,4 x 7,2 cm)</option><option value="0.7">70 % (9,1 x 6,3 cm)</option></select></label>
+  <span class="nota" id="estado" role="status">Completá los datos y tocá Imprimir: se abre la hoja A4 lista para imprimir (escala 100 %, sin márgenes).</span>
+</div>
+
+<div class="holder">
+  <div class="sheet">
+    <div class="label">
+
+      <svg class="abs logo" viewBox="0 0 100 110" aria-hidden="true">
+        <g fill="none" stroke="#c00000" stroke-width="5" stroke-linecap="round">
+          <path d="M6 28 Q50 -6 94 22"/>
+          <path d="M20 42 Q52 18 82 36"/>
+        </g>
+        <path d="M50 52 C26 52 20 74 30 92 L44 106 Q50 112 54 104 L66 84 C78 66 72 52 50 52 Z" fill="#c00000"/>
+        <circle cx="52" cy="72" r="13" fill="#ffffff"/>
+        <circle cx="52" cy="72" r="6" fill="#c00000"/>
+      </svg>
+      <p class="abs tag-top">RASTREO SATELITAL</p>
+      <p class="abs brand">MAQSAT</p>
+      <p class="abs tag-bot">SOLUCIONES IoT</p>
+
+      <p class="abs envio">ENVIO</p>
+
+      <p class="abs addr">18 De Julio 1378 - Fray Bentos</p>
+
+      <svg class="abs phone-ico" viewBox="0 0 100 100" aria-hidden="true">
+        <circle cx="50" cy="50" r="46" fill="none" stroke="#000000" stroke-width="6"/>
+        <path d="M33 24c-4 0-8 4-8 9 0 22 21 43 43 43 5 0 9-4 9-8l-9-9c-2-2-5-2-7 0l-4 4c-8-3-14-9-17-17l4-4c2-2 2-5 0-7z" fill="#000000"/>
+      </svg>
+      <p class="abs phone">099 562 001</p>
+
+      <svg class="abs mail-ico" viewBox="0 0 100 60" aria-hidden="true">
+        <rect x="0" y="0" width="100" height="60" rx="6" fill="#000000"/>
+        <path d="M6 6 L50 38 L94 6" fill="none" stroke="#ffffff" stroke-width="6" stroke-linejoin="round"/>
+      </svg>
+      <p class="abs mail">ventas@maqsat.com.uy</p>
+
+      <p class="abs web">www.maqsat.com.uy</p>
+
+      <div class="row r-para"><label for="para">Para:</label><input id="para" type="text" autocomplete="off"></div>
+      <div class="row r-dir"><label for="dir">Dir. :</label><input id="dir" type="text" autocomplete="off"></div>
+      <div class="row r-loc"><label for="loc">Loc. :</label><input id="loc" type="text" autocomplete="off"></div>
+
+      <div class="paga">
+        <span>Paga:</span>
+        <label class="opt">SI<input type="checkbox" id="si"></label>
+        <label class="opt">NO<input type="checkbox" id="no"></label>
+      </div>
+
+      <div class="fragil"><span class="dash">-</span><span>FRAGIL</span><span class="dash">-</span></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  var si = document.getElementById('si'), no = document.getElementById('no');
+  var btn = document.getElementById('imprimir'), estado = document.getElementById('estado');
+  si.addEventListener('change', function(){ if (si.checked) no.checked = false; });
+  no.addEventListener('change', function(){ if (no.checked) si.checked = false; });
+  document.getElementById('limpiar').addEventListener('click', function(){
+    document.querySelectorAll('input[type=text]').forEach(function(i){ i.value = ''; });
+    si.checked = false; no.checked = false;
+  });
+
+  document.getElementById('escala').addEventListener('change', function(e){
+    document.documentElement.style.setProperty('--k', e.target.value);
+  });
+
+  // Reduce la hoja A4 para que entre en pantallas angostas.
+  function ajustar(){
+    var probe = document.createElement('div');
+    probe.style.cssText = 'position:absolute;visibility:hidden;width:210mm;height:0';
+    document.body.appendChild(probe);
+    var a4px = probe.offsetWidth;
+    document.body.removeChild(probe);
+    var disp = document.documentElement.clientWidth - 32;
+    var s = Math.min(1, disp / a4px);
+    document.documentElement.style.setProperty('--s', s > 0 ? s : 1);
+  }
+  window.addEventListener('resize', ajustar);
+  ajustar();
+
+  // Archivo listo para imprimir: la hoja A4 con los datos completados. Al abrirlo se abre la impresión.
+  function armarArchivo(){
+    var sheet = document.querySelector('.sheet').cloneNode(true);
+    ['para', 'dir', 'loc'].forEach(function(id){
+      sheet.querySelector('#' + id).setAttribute('value', document.getElementById(id).value);
+    });
+    ['si', 'no'].forEach(function(id){
+      if (document.getElementById(id).checked) sheet.querySelector('#' + id).setAttribute('checked', '');
+    });
+    var css = Array.prototype.map.call(document.querySelectorAll('style'), function(s){ return s.textContent; }).join('\n');
+    var extra = 'html:root:root:root{--k:' + document.getElementById('escala').value + ';--bg:#d9d9de;--fg:#1a1a1d;--muted:#5a5a62;--btn-bg:#fff;--btn-border:#8a8a92;--accent:#c00000;color-scheme:light}' +
+      '@page{size:A4 portrait;margin:0}' +
+      '@media print{html,body{width:210mm;height:297mm}body{background:#fff!important;padding:0!important}.toolbar{display:none!important}.holder{width:210mm!important;height:297mm!important;margin:0!important}.sheet{transform:none!important;box-shadow:none!important}.row input[type=text]{background:transparent!important}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}';
+    var js = [
+      "var si=document.getElementById('si'),no=document.getElementById('no');",
+      "si.addEventListener('change',function(){if(si.checked)no.checked=false;});",
+      "no.addEventListener('change',function(){if(no.checked)si.checked=false;});",
+      "function ajustar(){var p=document.createElement('div');p.style.cssText='position:absolute;visibility:hidden;width:210mm;height:0';document.body.appendChild(p);var w=p.offsetWidth;document.body.removeChild(p);var s=Math.min(1,(document.documentElement.clientWidth-32)/w);document.documentElement.style.setProperty('--s',s>0?s:1);}",
+      "window.addEventListener('resize',ajustar);ajustar();",
+      "window.addEventListener('beforeprint',function(){document.documentElement.style.setProperty('--s',1);});",
+      "window.addEventListener('afterprint',ajustar);",
+      "document.getElementById('imprimir').addEventListener('click',function(){window.print();});",
+      "window.addEventListener('load',function(){setTimeout(function(){window.print();},400);});"
+    ].join('\n');
+    return '<!doctype html><html lang="es"><head><meta charset="utf-8">' +
+      '<meta name="viewport" content="width=device-width,initial-scale=1">' +
+      '<title>Etiqueta de Envío - Hoja A4</title><style>' + css + '\n' + extra + '</style></head><body>' +
+      '<div class="toolbar"><button type="button" class="primary" id="imprimir">Imprimir</button>' +
+      '<span class="nota">Hoja A4 con etiqueta de 13 x 9 cm. En la ventana de impresión elegí escala 100 % y sin márgenes.</span></div>' +
+      '<div class="holder">' + sheet.outerHTML + '</div>' +
+      '<script>' + js + '<\/script>';
+  }
+
+  function avisar(texto){ estado.textContent = texto; }
+
+  var downloads = null;
+  (async function(){
+    try { downloads = (window.claude && window.claude.use) ? await window.claude.use('downloads') : null; } catch (e) { downloads = null; }
+  })();
+
+  // Intenta abrir la hoja en una ventana nueva y que se imprima sola. Si el visor no deja abrirla, la ofrece como archivo.
+  btn.addEventListener('click', async function(){
+    var html = armarArchivo();
+    var w = null;
+    try { w = window.open('', '_blank'); } catch (e) { w = null; }
+    if (w) {
+      try { w.document.open(); w.document.write(html); w.document.close(); avisar('Se abrió la hoja A4 para imprimir (escala 100 %, sin márgenes).'); return; } catch (e) { /* sigue al guardado */ }
+    }
+    if (!downloads) { avisar('No se pudo abrir la impresión desde esta vista. Abrí la página desde claude.ai.'); return; }
+    btn.disabled = true;
+    try {
+      await downloads.save({ filename: 'etiqueta-envio-A4.html', data: html });
+      avisar('Este visor no permite abrir la impresión directa. Se guardó un archivo: abrilo y se abre la impresión.');
+    } catch (e) {
+      if (e && e.code === 'declined') avisar('No se guardó el archivo. Tocá Imprimir para intentar de nuevo.');
+      else avisar('No se pudo abrir ni guardar la hoja desde esta vista.');
+    } finally {
+      btn.disabled = false;
+    }
+  });
+</script>
+
+<style>
+  @page { size: A4 portrait; margin: 0; }
+  @media print {
+    html, body { width: 210mm; height: 297mm; margin: 0 !important; padding: 0 !important; background: #fff !important; }
+    .toolbar { display: none !important; }
+    .holder { width: 210mm !important; height: 297mm !important; margin: 0 !important; }
+    .sheet { transform: none !important; box-shadow: none !important; }
+    .row input[type=text] { background: transparent !important; }
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+<script>
+  // Versión para abrir desde la PC: Imprimir abre directamente la ventana de impresión.
+  (function(){
+    var viejo = document.getElementById('imprimir');
+    var nuevo = viejo.cloneNode(true);
+    viejo.parentNode.replaceChild(nuevo, viejo);
+    nuevo.addEventListener('click', function(){
+      if (document.activeElement) document.activeElement.blur();
+      window.print();
+    });
+    window.addEventListener('beforeprint', function(){ document.documentElement.style.setProperty('--s', 1); });
+    window.addEventListener('afterprint', ajustar);
+    document.getElementById('estado').textContent = 'Completá los datos y tocá Imprimir. En la ventana de impresión: papel A4, escala 100 %, márgenes "Ninguno".';
+  })();
+</script>
+</body></html>
