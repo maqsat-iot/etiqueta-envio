@@ -206,10 +206,10 @@
 <style>
   @page { size: A4 portrait; margin: 0; }
   @media print {
-    html, body { width: 210mm; height: 297mm; margin: 0 !important; padding: 0 !important; background: #fff !important; }
+    :root, html, body { width: 210mm !important; height: 280mm !important; max-height: 280mm !important; overflow: hidden !important; margin: 0 !important; padding: 0 !important; background: #fff !important; }
     .toolbar { display: none !important; }
-    .holder { width: 210mm !important; height: 297mm !important; margin: 0 !important; }
-    .sheet { transform: none !important; box-shadow: none !important; }
+    .holder { width: 210mm !important; height: 280mm !important; margin: 0 !important; overflow: hidden !important; break-after: avoid; page-break-after: avoid; }
+    .sheet { transform: none !important; box-shadow: none !important; height: 280mm !important; break-inside: avoid; page-break-inside: avoid; }
     .row input[type=text] { background: transparent !important; }
     * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   }
