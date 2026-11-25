@@ -214,6 +214,8 @@
     * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   }
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
   // Versión para abrir desde la PC: Imprimir abre directamente la ventana de impresión.
   (function(){
@@ -226,7 +228,54 @@
     });
     window.addEventListener('beforeprint', function(){ document.documentElement.style.setProperty('--s', 1); });
     window.addEventListener('afterprint', ajustar);
-    document.getElementById('estado').textContent = 'Completá los datos y tocá Imprimir. En la ventana de impresión: papel A4, escala 100 %, márgenes "Ninguno".';
+    document.getElementById('estado').textContent = 'Completá los datos y tocá Imprimir o Descargar PDF. Al imprimir: papel A4, escala 100 %, márgenes "Ninguno".';
+
+    // Descargar PDF: hoja A4 con la etiqueta completada, a tamaño real.
+    var bajar = document.createElement('button');
+    bajar.type = 'button'; bajar.id = 'descargar'; bajar.textContent = 'Descargar PDF';
+    var limpiar = document.getElementById('limpiar');
+    limpiar.parentNode.insertBefore(bajar, limpiar);
+
+    bajar.addEventListener('click', function(){
+      if (document.activeElement) document.activeElement.blur();
+      if (!window.html2canvas || !window.jspdf) { estado.textContent = 'No se pudo preparar el PDF. Revisá la conexión y recargá la página.'; return; }
+      var k = parseFloat(document.getElementById('escala').value) || 1;
+      var valores = {}; ['para','dir','loc'].forEach(function(id){ valores[id] = document.getElementById(id).value; });
+      var marcas = { si: si.checked, no: no.checked };
+      bajar.disabled = true; estado.textContent = 'Generando el PDF…';
+      html2canvas(document.querySelector('.label'), {
+        scale: 5, backgroundColor: '#ffffff', logging: false,
+        onclone: function(doc){
+          doc.documentElement.style.setProperty('--s', '1');
+          doc.documentElement.setAttribute('data-theme', 'light');
+          var win = doc.defaultView;
+          doc.querySelectorAll('.label input[type=text]').forEach(function(inp){
+            var cs = win.getComputedStyle(inp), sp = doc.createElement('span');
+            sp.textContent = valores[inp.id] || '';
+            sp.style.cssText = 'display:block;flex:1;min-width:0;white-space:nowrap;overflow:hidden;line-height:' + cs.height +
+              ';height:' + cs.height + ';font-size:' + cs.fontSize + ';font-family:' + cs.fontFamily + ';color:' + cs.color +
+              ';padding:' + cs.padding + ';border-bottom:' + cs.borderBottomWidth + ' solid #000;';
+            inp.parentNode.replaceChild(sp, inp);
+          });
+          doc.querySelectorAll('.label .paga input').forEach(function(inp){
+            var cs = win.getComputedStyle(inp), b = doc.createElement('span');
+            var bw = parseFloat(cs.borderTopWidth) || 1, w = parseFloat(cs.width);
+            b.style.cssText = 'display:inline-block;position:relative;box-sizing:border-box;width:' + w + 'px;height:' + w + 'px;border:' + bw + 'px solid #000;background:#fff;';
+            if (marcas[inp.id]) { var d = doc.createElement('span'), g = w * 0.1; d.style.cssText = 'position:absolute;left:' + g + 'px;top:' + g + 'px;right:' + g + 'px;bottom:' + g + 'px;background:#000;'; b.appendChild(d); }
+            inp.parentNode.replaceChild(b, inp);
+          });
+        }
+      }).then(function(canvas){
+        var pdf = new window.jspdf.jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
+        var w = 130 * k, h = 90 * k;
+        pdf.addImage(canvas.toDataURL('image/png'), 'PNG', (210 - w) / 2, 15, w, h);
+        var nombre = (valores.para || '').trim().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^A-Za-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 40);
+        pdf.save('etiqueta' + (nombre ? '-' + nombre : '') + '.pdf');
+        estado.textContent = 'PDF descargado. Para imprimirlo: papel A4, tamaño real (100 %).';
+      }).catch(function(){
+        estado.textContent = 'No se pudo generar el PDF. Probá de nuevo.';
+      }).then(function(){ bajar.disabled = false; });
+    });
   })();
 </script>
 </body></html>
