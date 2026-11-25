@@ -249,6 +249,19 @@
           doc.documentElement.style.setProperty('--s', '1');
           doc.documentElement.setAttribute('data-theme', 'light');
           var win = doc.defaultView;
+          // Los íconos SVG se pasan a imagen para que salgan en el PDF.
+          doc.querySelectorAll('.label svg').forEach(function(svg){
+            var cs = win.getComputedStyle(svg), w = parseFloat(cs.width), h = parseFloat(cs.height);
+            var copia = svg.cloneNode(true);
+            copia.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+            copia.setAttribute('width', w); copia.setAttribute('height', h);
+            copia.removeAttribute('class');
+            var img = doc.createElement('img');
+            img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(new XMLSerializer().serializeToString(copia));
+            img.className = svg.getAttribute('class');
+            img.style.cssText = 'width:' + w + 'px;height:' + h + 'px;max-width:none;';
+            svg.parentNode.replaceChild(img, svg);
+          });
           doc.querySelectorAll('.label input[type=text]').forEach(function(inp){
             var cs = win.getComputedStyle(inp), sp = doc.createElement('span');
             sp.textContent = valores[inp.id] || '';
