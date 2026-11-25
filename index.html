@@ -220,6 +220,17 @@
     document.getElementById('estado').textContent = 'Completá los datos y tocá Imprimir o Descargar PDF. Al imprimir: papel A4, escala 100 %, márgenes "Ninguno".';
 
     // Descargar PDF: hoja A4 con la etiqueta completada, a tamaño real.
+    // Los íconos SVG se pasan a imagen al cargar, así también salen en el PDF.
+    document.querySelectorAll(".label svg").forEach(function(svg){
+      var copia = svg.cloneNode(true);
+      copia.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+      copia.removeAttribute("class");
+      var img = document.createElement("img");
+      img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(new XMLSerializer().serializeToString(copia));
+      img.className = svg.getAttribute("class");
+      img.alt = "";
+      svg.parentNode.replaceChild(img, svg);
+    });
     var bajar = document.createElement('button');
     bajar.type = 'button'; bajar.id = 'descargar'; bajar.textContent = 'Descargar PDF';
     var limpiar = document.getElementById('limpiar');
@@ -238,19 +249,6 @@
           doc.documentElement.style.setProperty('--s', '1');
           doc.documentElement.setAttribute('data-theme', 'light');
           var win = doc.defaultView;
-          // Los íconos SVG se pasan a imagen para que salgan en el PDF.
-          doc.querySelectorAll('.label svg').forEach(function(svg){
-            var cs = win.getComputedStyle(svg), w = parseFloat(cs.width), h = parseFloat(cs.height);
-            var copia = svg.cloneNode(true);
-            copia.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-            copia.setAttribute('width', w); copia.setAttribute('height', h);
-            copia.removeAttribute('class');
-            var img = doc.createElement('img');
-            img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(new XMLSerializer().serializeToString(copia));
-            img.className = svg.getAttribute('class');
-            img.style.cssText = 'width:' + w + 'px;height:' + h + 'px;max-width:none;';
-            svg.parentNode.replaceChild(img, svg);
-          });
           doc.querySelectorAll('.label input[type=text]').forEach(function(inp){
             var cs = win.getComputedStyle(inp), sp = doc.createElement('span');
             sp.textContent = valores[inp.id] || '';
