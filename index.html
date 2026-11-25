@@ -227,6 +227,7 @@
       var copia = svg.cloneNode(true);
       copia.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       copia.removeAttribute("class");
+      var vb = (svg.getAttribute("viewBox") || "0 0 100 100").split(/[ ,]+/); copia.setAttribute("width", vb[2]); copia.setAttribute("height", vb[3]);
       var img = document.createElement("img");
       img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(new XMLSerializer().serializeToString(copia));
       img.className = svg.getAttribute("class");
